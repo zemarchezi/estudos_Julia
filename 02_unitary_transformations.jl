@@ -19,4 +19,4 @@ Rz = [[cos(theta[3]), -sin(theta[3]), 0],
                [0, 0, 1]];
 
 # Rotate and scale
-X = Rz .* Ry .* Rx .* Sigma; ## Problem Here!!!!
+X = Rz .* Ry .* Rx .* Sigma; ## Problem Here!!
