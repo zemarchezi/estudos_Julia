@@ -1,4 +1,4 @@
-using Plots, LinearAlgebra
+using PyPlot, LinearAlgebra
 
 theta = Array([pi/15, -pi/9, -pi/20]);
 Sigma = Diagonal([3, 1, 0.5]);
@@ -19,14 +19,19 @@ Rz = mapreduce(permutedims, vcat, [[cos(theta[3]), -sin(theta[3]), 0],
                [0, 0, 1]]);
 
 # Rotate and scale
-X = Rz .* Ry .* Rx .* Sigma; ## Problem Here!!
+X = Rz * Ry * Rx * Sigma;
 
 
 ##
-u = LinRange(pi,pi,100);
-v = LinRange(0, pi, 100);
-x = cos.(u) .* sin.(v)';
-y = sin.(u) .* sin.(v)';
-z = ones(size(u)) .* cos.(v)';
+n = 100;
+# u = LinRange(π,π,n);
+u = range(0,stop=2*π,length=n);
 
-surface(x,y,z)
+# v = LinRange(0, π, n);
+v = range(0,stop=π,length=n);
+x = cos.(u) * sin.(v)';
+y = sin.(u) * sin.(v)';
+z = ones(n) * cos.(v)';
+
+surf(x,y,z, rstride=4, cstride=4);
+savefig("NormalSphere.png");
