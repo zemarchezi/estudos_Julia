@@ -22,6 +22,7 @@ Rz = mapreduce(permutedims, vcat, [[cos(theta[3]), -sin(theta[3]), 0],
 X = Rz * Ry * Rx * Sigma;
 
 
+
 ##
 n = 100;
 # u = LinRange(π,π,n);
@@ -33,5 +34,28 @@ x = cos.(u) * sin.(v)';
 y = sin.(u) * sin.(v)';
 z = ones(n) * cos.(v)';
 
+p1 = figure()
 surf(x,y,z, rstride=4, cstride=4);
-savefig("NormalSphere.png");
+# show()
+savefig("NormalSphere.png")
+close(p1)
+
+
+xR = zeros(size(x));
+yR = zeros(size(y));
+zR = zeros(size(z));
+
+for i in 1:size(x)[1], j in 1:size(x)[2]
+    vec = [x[i,j], y[i,j], z[i,j]];
+    vecR = X * vec;
+    xR[i,j] = vecR[1];
+    yR[i,j] = vecR[2];
+    zR[i,j] = vecR[3];
+
+end
+
+p2 = figure()
+surf(xR,yR,zR, rstride=4, cstride=4);
+# show()
+savefig("RotatedSphere.png")
+close(p2)
